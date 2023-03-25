@@ -327,3 +327,17 @@ module "vpc" {
 
   tags = local.tags
 }
+
+##################################### argocd ########################################
+module "argocd" {
+  source  = "terraform-aws-modules/eks/aws//modules/argocd"
+  version = "~> 19.9"
+
+  cluster_name = module.eks.cluster_name
+  cluster_arn  = module.eks.cluster_arn
+
+  # Wait on the `kube-system` profile before provisioning addons
+  data_plane_wait_arn = join(",", [for prof in module.eks.fargate_profiles : prof.fargate_profile_arn])
+
+  tags = local.tags
+}
