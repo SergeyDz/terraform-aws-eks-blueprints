@@ -17402,14 +17402,13 @@ resource "kubectl_manifest" "argocd" {
   YAML
 
   depends_on = [
-    module.eks_blueprints_kubernetes_addons
+    kubectl_manifest.argocd_namespace
   ]
 }
 
 ##################################### argocd ########################################
 resource "kubectl_manifest" "apps_argocd" {
   yaml_body = <<-YAML
-    ---
     apiVersion: argoproj.io/v1alpha1
     kind: Application
     metadata:
