@@ -204,7 +204,7 @@ resource "kubectl_manifest" "karpenter_provisioner" {
           values: ["c", "m"]
         - key: "karpenter.k8s.aws/instance-cpu"
           operator: In
-          values: ["8", "16", "32"]
+          values: ["2", "4", "8"]
         - key: "karpenter.k8s.aws/instance-hypervisor"
           operator: In
           values: ["nitro"]
@@ -216,7 +216,7 @@ resource "kubectl_manifest" "karpenter_provisioner" {
           values: ["arm64", "amd64"]
         - key: "karpenter.sh/capacity-type" # If not included, the webhook for the AWS cloud provider will default to on-demand
           operator: In
-          values: ["spot", "on-demand"]
+          values: ["spot"]
       kubeletConfiguration:
         containerRuntime: containerd
         maxPods: 110
